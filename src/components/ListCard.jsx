@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
 
 function ListCard({ post, user }) {
-  const { title, body } = post;
-
   return (
     <Link to={`/${post.id}`} className="blog-card">
       <div className="blog-card__content">
-        <h2 className="blog-card__title">{title}</h2>
-        <p className="blog-card__body">{body}</p>
+        <h2 className="blog-card__title">{post.title}</h2>
+        <p className="blog-card__body">{post.body}</p>
       </div>
       <footer className="blog-card__footer">
         <span>Written by</span>

@@ -1,29 +1,27 @@
-export async function fetchGetPosts() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error("api호출에 실패했습니다.");
+const API_URL = "https://jsonplaceholder.typicode.com";
+
+async function request(path, signal) {
+  const response = await fetch(`${API_URL}${path}`, { signal });
+
+  if (!response.ok) {
+    throw new Error(`API 요청에 실패했습니다. (${response.status})`);
   }
 
-  return data;
+  return response.json();
 }
 
-export async function fetchGetUsers() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error("api호출에 실패했습니다.");
-  }
-
-  return data;
+export function fetchGetPosts(signal) {
+  return request("/posts", signal);
 }
 
-export async function fetchGetComments() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/comments");
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error("api호출에 실패했습니다.");
-  }
+export function fetchGetUsers(signal) {
+  return request("/users", signal);
+}
 
-  return data;
+export function fetchGetPost(postId, signal) {
+  return request(`/posts/${postId}`, signal);
+}
+
+export function fetchGetPostComments(postId, signal) {
+  return request(`/posts/${postId}/comments`, signal);
 }
